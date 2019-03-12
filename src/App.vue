@@ -13,5 +13,14 @@ export default {
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0
+}
+html{
+  height: 100%
 }
 </style>

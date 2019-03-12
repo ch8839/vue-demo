@@ -36,7 +36,15 @@ const getStudentInfo = async function(){
     
 }
 
+const login = function(){
+    // const form = this.request.body
+    this.body={
+        msg:"成功POST"
+    }
+}
+
 module.exports= {
     getUserInfo,
-    getStudentInfo
+    getStudentInfo,
+    login
 }

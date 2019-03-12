@@ -8,7 +8,8 @@
   </div>
 </template>
  
-<script type="text/babel">
+<script>
+import request from "@/api/getUserInfo"
 export default {
   data() {
     return {
@@ -22,6 +23,14 @@ export default {
       topage2(){
           this.$router.push({path: '/todolist2' , query:{todolistId:2}})
       }
+  },
+  mounted(){
+    request.getUserInfo().then(res=>{
+      console.log(1,res)
+    })
+    request.getStudentInfo("1001").then(res=>{
+      console.log(2,res)
+    })
   }
 };
 </script>

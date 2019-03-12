@@ -1,8 +1,9 @@
-# koa2project1
+# vue-demo
 
-> A Vue.js project
+> 一个简单的vue小demo，包括和后端的通信
 
 ##项目准备
+
 - 建立数据库test
 - 导入sql文件
 - 修改server/config/db.js文件的账号密码为自己的账号密码
