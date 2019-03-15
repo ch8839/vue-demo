@@ -1,20 +1,10 @@
 import request from "../utils/request"
 
 const login = function(params) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    params:params
-  })
+  console.log("login提交参数",params)
+  return request.post('/user/login',params)
 }
 
-const getInfo = function(token) {
-  return request({
-      url: '/user/info',
-      method: 'get',
-      params:{ token }
-    })
-}
 
 const logout = function() {
   return request({
@@ -24,7 +14,6 @@ const logout = function() {
 }
 export default {
   login,
-  getInfo,
   logout
 }
 

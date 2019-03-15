@@ -1,16 +1,34 @@
 const path = require('path')
-const koa = new (require('koa'))()
+const Koa =(require('koa'))
 const router = require('koa-router')()
 const userRoute = require('./routers/index.js')
 const bodyparser = require('koa-bodyparser')
-const cors = require('koa2-cors');  
+const cors = require('koa2-cors')
+const json = require('koa-json')
 
+const app = new Koa()
 
+app.use(cors()) //use cors一定要挂载到路由之前
+app.use(bodyparser()) //use bodyparser要挂载到路由之前
+app.use(json())
+
+app.use(async function (ctx, next) {
+  try{
+    await next()
+  }catch(err){
+    ctx.body={
+      success:false
+    }
+    throw err
+  }
+})
 
 router.use(userRoute.routes())
-koa.use(router.routes()); // 将路由规则挂载到Koa上。
-koa.use(bodyparser())
-koa.use(cors());
-koa.listen(9091, () => {
+app.use(router.routes()) // 将路由规则挂载到Koa上。
+
+
+app.listen(9091, () => {
     console.log('Koa is listening on port 9091');
   });
+
+module.exports = app

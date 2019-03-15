@@ -13,9 +13,17 @@ const getStudentInfo = function(id) {
       method: 'get'
     })
 }
+
+const info = function() {
+  return request({
+      url: '/user/info',
+      method: 'get'
+    })
+}
 export default {
   getUserInfo,
-  getStudentInfo
+  getStudentInfo,
+  info
 }
 
 
