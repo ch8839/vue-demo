@@ -21,6 +21,11 @@ const getStudentById = async function(id){
     return userInfo
 }
 
+const getAllStudents = async function(){
+    const AllStudents = await studentInfo.findAll()
+    return AllStudents
+}
+
 const findUserByName = async function(form){
     const userinfo = await userSchema.findOne({
         where:{
@@ -32,6 +37,7 @@ const findUserByName = async function(form){
 module.exports = {
     getUserByName,
     getStudentById,
-    findUserByName
+    findUserByName,
+    getAllStudents
 
 }

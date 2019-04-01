@@ -56,13 +56,21 @@ const getLoginInfo = async function () {
 const getStudentInfo = async function () {
   const id = this.params.id
   const student = await userModel.getStudentById(id)
+  let student2 = await userModel.getAllStudents()
+  let AllStudents = student2.map(item=>{
+    return item.dataValues
+  })
+  console.log("student", student.dataValues)
+  console.log("student2", AllStudents)
   if (student) {
+    this.response.status=200
     this.body = {
       success: true,
       res: student,
       msg: '获取成功'
     }
   } else {
+    // this.response.status=412 //如果status不为200前台直接报错
     this.body = {
       success: false,
       msg: '获取失败'
