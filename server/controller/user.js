@@ -2,18 +2,18 @@ const userModel = require('../models/users.js');
 // const jwt = require('jsonwebtoken');
 // const util = require('util')
 // const verify = util.promisify(jwt.verify)
-
-const getUserInfo = async function () {
+class userController {
+static async  getUserInfo(ctx) {
   const name = "admin"
   const user = await userModel.getUserByName(name)
   if (user) {
-    this.body = {
+    ctx.body = {
       success: true,
       res: user,
       msg: '获取成功'
     }
   } else {
-    this.body = {
+    ctx.body = {
       success: false,
       msg: '获取失败'
     }
@@ -22,9 +22,9 @@ const getUserInfo = async function () {
 }
 
 
-const getLoginInfo = async function () {
-  console.log(this.header)
-  const token = this.header['x-token']
+static async getLoginInfo (ctx) {
+  console.log(ctx.header)
+  const token = ctx.header['x-token']
   console.log("后端获取token", token)
   if (token) {
     // let payload
@@ -38,13 +38,13 @@ const getLoginInfo = async function () {
         id: user[0],
         username: user[1],
       }
-      this.body = {
+      ctx.body = {
         success: true,
         res: user,
         msg: '查询成功'
       } 
   }else{
-    this.body = {
+    ctx.body = {
         msg: 'Token没有，查询失败'
       }
   }
@@ -53,25 +53,25 @@ const getLoginInfo = async function () {
 
 
 
-const getStudentInfo = async function () {
-  const id = this.params.id
+static async getStudentInfo (ctx,next) {
+  const id = ctx.params.id
+
   const student = await userModel.getStudentById(id)
   let student2 = await userModel.getAllStudents()
   let AllStudents = student2.map(item=>{
     return item.dataValues
   })
-  console.log("student", student.dataValues)
   console.log("student2", AllStudents)
   if (student) {
-    this.response.status=200
-    this.body = {
+    // ctx.response.status=200
+    ctx.body = {
       success: true,
       res: student,
       msg: '获取成功'
     }
   } else {
     // this.response.status=412 //如果status不为200前台直接报错
-    this.body = {
+    ctx.body = {
       success: false,
       msg: '获取失败'
     }
@@ -79,10 +79,10 @@ const getStudentInfo = async function () {
 
 }
 
-const login = async function () {
-  const form = this.request.body
+static async login (ctx) {
+  const form = ctx.request.body
+  console.log('form', form)
   const res = await userModel.findUserByName(form)
-  console.log(res)
   if (res) {
     if (res.password == form.password) {
     //   const userToken = {
@@ -97,7 +97,7 @@ const login = async function () {
     //     expiresIn: '1h'
     //   });
 
-      this.body = {
+      ctx.body = {
         code: 200,
         data: {
           msg: "登录成功！",
@@ -107,7 +107,7 @@ const login = async function () {
         token: userToken,
       }
     } else {
-      this.body = {
+      ctx.body = {
         code: 412,
         data: {
           msg: "密码错误"
@@ -115,7 +115,7 @@ const login = async function () {
       }
     }
   } else {
-    this.body = {
+    ctx.body = {
       code: 403,
       data: {
         msg: "用户不存在"
@@ -123,10 +123,6 @@ const login = async function () {
     }
   }
 }
-
-module.exports = {
-  getUserInfo,
-  getStudentInfo,
-  login,
-  getLoginInfo
 }
+
+module.exports = userController

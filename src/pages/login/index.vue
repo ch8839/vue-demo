@@ -4,7 +4,7 @@
       <p>SHU-Manage-System</p>
       <div class="form-content">
         <input v-model="form.username" placeholder="请输入用户名">
-        <input type="password" v-model="form.password" placeholder="请输入密码">
+        <input type="password" v-model="form.password" placeholder="请输入密码"  @keyup.enter="login">
         <button @click="login">登录</button>
       </div>
     </div>

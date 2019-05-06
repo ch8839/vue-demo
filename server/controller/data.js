@@ -1,7 +1,7 @@
 const markerModel = require('../models/data.js');
 
 
-const getMarkerInfo = async function () {
+const getMarkerInfo = async function (ctx) {
   const markerInfo = await markerModel.getAllMarkerInfo()
   if (markerInfo) {
     // let markerInfoList = markerInfo.map((item,index)=>{
@@ -11,13 +11,13 @@ const getMarkerInfo = async function () {
     //     delete item.lat
     //     return item
     // })  
-    this.body = {
+    ctx.body = {
       success: true,
       res: markerInfo,
       msg: '获取成功'
     }
   } else {
-    this.body = {
+    ctx.body = {
       success: false,
       msg: '获取失败'
     }

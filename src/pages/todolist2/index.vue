@@ -43,7 +43,7 @@ export default {
   }, //这种形式相当于data:function(){...},在vue-cli中data不能用对象data:{...}的形式，而是返回函数的形式
   methods: {
     handleSubmit: function() {
-      this.$http.get("http://localhost:9091/student/"+this.number).then(res => {
+      this.$http.get("/student/"+this.number).then(res => {
       console.log(res)
       
       if(res.data.success){
